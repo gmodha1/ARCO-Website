@@ -153,16 +153,53 @@
                 <a href="#gallery" class="text-brand-gray hover:text-accent transition-colors duration-200">Work</a>
                 <a href="#contact" class="text-brand-gray hover:text-accent transition-colors duration-200">Contact</a>
             </nav>
-                <div class="md:hidden">
-                    <button class="text-brand-gray hover:text-accent">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-toggle" class="text-brand-gray hover:text-accent focus:outline-none" aria-label="Open navigation" aria-expanded="false">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+        <!-- Mobile nav -->
+        <nav id="mobile-nav" class="md:hidden fixed top-0 left-0 w-full h-full bg-brand-white z-40 flex flex-col items-center justify-center space-y-8 text-2xl font-semibold text-brand-dark transition-transform duration-300 transform -translate-y-full" style="pointer-events: none;">
+            <a href="#services" class="hover:text-accent transition-colors duration-200">Services</a>
+            <a href="#about" class="hover:text-accent transition-colors duration-200">About</a>
+            <a href="#industries" class="hover:text-accent transition-colors duration-200">Industries</a>
+            <a href="#gallery" class="hover:text-accent transition-colors duration-200">Work</a>
+            <a href="#contact" class="hover:text-accent transition-colors duration-200">Contact</a>
+        </nav>
     </header>
+    <script>
+    // Mobile menu toggle logic
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileToggle && mobileNav) {
+        mobileToggle.addEventListener('click', function() {
+            const expanded = mobileToggle.getAttribute('aria-expanded') === 'true';
+            if (!expanded) {
+                mobileNav.classList.remove('-translate-y-full');
+                mobileNav.classList.add('translate-y-0');
+                mobileNav.style.pointerEvents = 'auto';
+                mobileToggle.setAttribute('aria-expanded', 'true');
+            } else {
+                mobileNav.classList.add('-translate-y-full');
+                mobileNav.classList.remove('translate-y-0');
+                mobileNav.style.pointerEvents = 'none';
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        // Close menu on nav link click
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('-translate-y-full');
+                mobileNav.classList.remove('translate-y-0');
+                mobileNav.style.pointerEvents = 'none';
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+    </script>
 
     <!-- Hero Section -->
     <section class="relative min-h-screen flex items-center gradient-overlay">
